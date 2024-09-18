@@ -1,0 +1,119 @@
+select * from hotels_data;
+select * from hotel_reviews;
+select * from hotel_guests;
+
+--------------------------------------------------------------------------------
+
+-- Converts the BookingDate column to a consistent date format (YYYY-MM-DD) without altering the actual values.
+UPDATE hotel_guests
+SET BookingDate = TO_DATE(TO_CHAR(BookingDate, 'YYYY-MM-DD'), 'YYYY-MM-DD');
+
+-- Converts the CheckInDate column to a consistent date format (YYYY-MM-DD) without altering the actual values.
+UPDATE hotel_guests
+SET CheckInDate = TO_DATE(TO_CHAR(CheckInDate, 'YYYY-MM-DD'), 'YYYY-MM-DD');
+
+-- Converts the CheckOutDate column to a consistent date format (YYYY-MM-DD) without altering the actual values.
+UPDATE hotel_guests
+SET CheckOutDate = TO_DATE(TO_CHAR(CheckOutDate, 'YYYY-MM-DD'), 'YYYY-MM-DD');
+
+---------------------------------------------------------------------------------
+
+-- Creates a new table 'hotel_average_scores' to store the average review scores of each hotel.
+CREATE TABLE hotel_average_scores AS
+SELECT
+    hr.HotelID,
+    hd.HotelName,
+    ROUND(AVG(hr.ServiceQualityScore)) AS AvgServiceQuality, 
+    ROUND(AVG(hr.CleanlinessScore)) AS AvgCleanliness, 
+    ROUND(AVG(hr.RoomComfortScore)) AS AvgRoomComfort, 
+    ROUND(AVG(hr.ReviewScore)) AS AvgOverallScore,
+    ROUND(AVG(hr.RecommendationLikelihood)) AS AvgRecommendationLikelihood 
+FROM
+    hotel_reviews hr
+JOIN
+    hotels_data hd ON hr.HotelID = hd.HotelID 
+GROUP BY
+    hr.HotelID,
+    hd.HotelName 
+ORDER BY 
+    hr.HotelID; 
+
+
+SELECT * FROM HOTEL_AVERAGE_SCORES;
+
+------------------------------------------------------------------------------
+
+-- Capitalizes the first letter of each word in GuestName and converts the rest to lowercase for consistency.
+UPDATE hotel_guests
+SET GuestName = INITCAP(LOWER(GuestName));
+
+------------------------------------------------------------------------------
+
+-- Capitalizes the first letter of each word in REVIEWCOMMENTS and converts the rest to lowercase for consistency.
+UPDATE hotel_reviews
+SET REVIEWCOMMENTS = INITCAP(LOWER(REVIEWCOMMENTS));
+
+-------------------------------------------------------------------------------
+
+-- Corrects the column name from GUESTLD to GUESTID in the hotel_guests table (possible typo fix).
+ALTER TABLE hotel_guests
+RENAME COLUMN GUESTLD TO GUESTID;
+
+------------------------------------------------------------------------------
+
+-- Calculates the total number of unique guests and total reviews for each hotel, displaying the HotelID and HotelName.
+SELECT 
+    hd.HotelID, 
+    hd.HotelName,
+    COUNT(DISTINCT hg.GuestID) AS TotalGuests, 
+    COUNT(hr.FeedbackID) AS TotalReviews 
+FROM 
+    hotels_data hd
+JOIN 
+    hotel_reviews hr  ON hd.HotelID = hr.HotelID 
+LEFT JOIN 
+    hotel_guests hg ON hg.GuestID = hr.GuestID
+GROUP BY 
+    hd.HotelID, 
+    hd.HotelName 
+ORDER BY 
+    hd.HotelID;
+
+------------------------------------------------------------------------------
+
+-- Corrects common misspellings or variants of nationalities in the CustomerNationality column of the hotel_guests table.
+UPDATE HOTEL_GUESTS
+SET CustomerNationality = CASE
+    WHEN CustomerNationality = 'Azerbaijanii' THEN 'Azerbaijani'
+    WHEN CustomerNationality = 'Indiann' THEN 'Indian'
+    WHEN CustomerNationality = 'Iranianian' THEN 'Iranian'
+    WHEN CustomerNationality = 'Saudi Arabiann' THEN 'Saudi Arabian'
+    WHEN CustomerNationality = 'Russian Federation' THEN 'Russian'
+    WHEN CustomerNationality = 'Pakistanii' THEN 'Pakistani'
+    WHEN CustomerNationality = 'Azerbaijaniiian' THEN 'Azerbaijani'
+    WHEN CustomerNationality = 'Azerbaijaniiese' THEN 'Azerbaijani'
+    ELSE CustomerNationality 
+END;
+
+-- Groups guests by nationality, counts the occurrences of each nationality, and sorts the results in descending order.
+SELECT CustomerNationality, COUNT(*) AS Count
+FROM HOTEL_GUESTS
+GROUP BY CustomerNationality
+ORDER BY Count DESC;
+
+
+-- Hotels with Most Repeat Guests
+
+SELECT hd.hotelname ,hd.hotelstarrating, COUNT(hg.guestid) AS StayCount
+FROM 
+    hotels_data hd
+JOIN 
+    hotel_reviews hr  ON hd.HotelID = hr.HotelID 
+LEFT JOIN 
+    hotel_guests hg ON hg.GuestID = hr.GuestID
+WHERE hg.repeatguests = 'Regular Guest'
+GROUP BY hd.HotelName,hd.hotelstarrating
+ORDER BY StayCount DESC
+fetch first 10 rows only ;
+
+
