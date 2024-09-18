@@ -8,10 +8,9 @@ Hotels Data: Contains detailed information about 140 hotels in Baku, including t
 
 Hotel Guests: Contains synthetic guest data for 3,705 guests, including demographics, booking information, and guest types (e.g., repeat guests, first-time guests).
 
-Hotel Reviews: Contains synthetic review data for 3,000 reviews across the hotels, with ratings for different categories such as room comfort, service quality, cleanliness, and an overall review score.
+Hotel Reviews: Contains synthetic review data for over 3,500 reviews across the hotels, with ratings for different categories such as room comfort, service quality, cleanliness, and an overall review score.
 
-Analysis Goals
-The goals of this project are:
+Analysis Goals of this project are:
 
 To understand the preferences of hotel guests in Baku.
 To provide actionable insights for hotels on how to improve their services and attract more guests.
@@ -21,11 +20,17 @@ Tech Stack
 This project utilizes the following tools and technologies:
 
 Python (for data scraping, cleaning, and processing)
+
 SQL (for storing and querying the data in Oracle SQL)
+
 Qlik Sense (for data visualization and dashboard creation)
+
 Pandas (for data manipulation)
-BeautifulSoup & Playwright (for web scraping)
-SQLAlchemy (for managing database connections)
+
+BeautifulSoup & Selenium (for web scraping)
+
+
+
 Installation
 To run the project locally:
 
@@ -33,8 +38,12 @@ Clone the repository:
 
 bash
 Copy code
+
 git clone https://github.com/yourusername/baku-hotel-analysis.git
 cd baku-hotel-analysis
+
+
+
 Install the required Python packages:
 
 bash
