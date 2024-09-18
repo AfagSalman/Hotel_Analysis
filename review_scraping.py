@@ -95,7 +95,8 @@ def main():
         "Sapphire Hotel": "https://www.booking.com/reviews/az/hotel/sapphire.en-gb.html",
         "Ivy Garden Hotel Baku": "https://www.booking.com/reviews/az/hotel/ivy-garden.en-gb.html",
         "Hyatt Regency Baku": "https://www.booking.com/reviews/az/hotel/hyatt-regency-baku.en-gb.html",
-        "Musafir by Lara": "https://www.booking.com/reviews/az/hotel/musafir-by-lara.en-gb.html"
+        "Musafir by Lara": "https://www.booking.com/reviews/az/hotel/musafir-by-lara.en-gb.html",
+        other hotel names...
     }
     
     options = Options()
