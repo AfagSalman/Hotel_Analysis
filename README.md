@@ -39,16 +39,15 @@ Clone the repository:
 bash
 Copy code
 
-git clone https://github.com/yourusername/baku-hotel-analysis.git
-cd baku-hotel-analysis
-
-
+git clone https://github.com/AfagSalman/Hotel_Analysis.git
+cd Hotel_Analysis
 
 Install the required Python packages:
 
 bash
 Copy code
 pip install -r requirements.txt
+
 Set up the SQL database: Load the dataset into your Oracle SQL or any preferred database management system.
 
 Run the analysis scripts: Use the Python scripts in the scripts/ folder to process data, clean, and prepare it for visualization.
@@ -65,16 +64,14 @@ Example:
 Hotel Performance: See how guest satisfaction varies across hotels based on location, amenities, and room rates.
 Guest Demographics: Analyze trends in guest nationality, booking lead time, and preferences for repeat guests.
 Visualizations
+
+
 Key visualizations in the project include:
 
-Pie charts showing guest nationality distribution and hotel renovation age.
-Bar charts showing hotel review scores and guest satisfaction levels.
-Scatter plots correlating guest count with hotel distance from the city center and airport.
-Treemaps displaying hotel amenities and how they affect overall ratings.
 License
 This project is licensed under the Apache License, Version 2.0. You may obtain a copy of the License at:
 
 arduino
 Copy code
 http://www.apache.org/licenses/LICENSE-2.0
-Feel free to replace yourusername in the git clone section with your actual GitHub username once you create the repository. Let me know if you need help with anything else!
+
